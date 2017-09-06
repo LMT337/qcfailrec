@@ -44,20 +44,8 @@ def topmed_metrics_fail(line):
         print('GTother-True')
 
 
-
-        # elif (float(line['HAPLOID_COVERAGE']) < 30):
-    #     qc['qc_comment']
-
-# TOTAL_BASES_Q20_OR_MORE < 86,000,000,000
-# PCT_10X < 0.95
-# PCT_20X < 0.90
-
-list_format = []
-
 with open(args.file) as infile, open( outfile, 'w') as outfilecsv:
-    # print(infile)
     reader = csv.DictReader(infile, delimiter="\t")
-    # print(reader)
     for line in reader:
         topmed_metrics_fail(line)
         print(qc)
