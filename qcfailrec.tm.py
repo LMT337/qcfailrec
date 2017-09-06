@@ -21,15 +21,36 @@ qc = {}
 
 def topmed_metrics_fail(line):
     if (float(line['Freemix_Alpha']) >=  0.01):
+        qc['reason'] = 'Freemix_Alpha >= 0.01'
         qc['qc_comment'] = 'Contamination'
         qc['qc_reccomendation'] = 'Library or DNA contaminated. Please abandon the library. Note: Source DNA may or may not be contaminated.'
+        print('Free True')
 
-# HAPLOID_COVERAGE < 30
+    elif (float(line['GENOTYPING_CHIPMIX'])  == 0.01 or  float(line['GENOTYPING_CHIPMIX']) < 0.9):
+        qc['reason'] = 'genotyping_chipmix equal to 0.01 or less than 0.9'
+        qc['qc_comment'] = 'Contamination'
+        qc['qc_reccomendation'] = 'Library or DNA contaminated. Please abandon the library. Note: Source DNA may or may not be contaminated.'
+        print('GT-True')
+    elif (float(line['GENOTYPING_CHIPMIX']) >=  0.9):
+        qc['reason'] = 'genotyping_chipmix greater than 0.9'
+        qc['qc_comment'] = 'metrics indicate wrong identity/sample swap'
+        qc['qc_reccomendation'] = 'Possible library/DNA swap, needs further investigation starting with QC'
+        print('GTother-True')
+
+        elif (float(line['GENOTYPING_CHIPMIX']) >= 0.9):
+        qc['reason'] = 'genotyping_chipmix greater than 0.9'
+        qc['qc_comment'] = 'Coverage fail'
+        qc['qc_reccomendation'] = 'Possible library/DNA swap, needs further investigation starting with QC'
+        print('GTother-True')
+
+
+
+        # elif (float(line['HAPLOID_COVERAGE']) < 30):
+    #     qc['qc_comment']
+
 # TOTAL_BASES_Q20_OR_MORE < 86,000,000,000
 # PCT_10X < 0.95
 # PCT_20X < 0.90
-# GENOTYPING_CHIPMIX  = 0.01 < 0.9 (contamination)
-# GENOTYPING_CHIPMIX = > 0.9 (wrong identity/sample swap)
 
 list_format = []
 
